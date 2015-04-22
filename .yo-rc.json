@@ -1,0 +1,19 @@
+{
+  "generator-jhipster": {
+    "baseName": "SolveAndShare",
+    "packageName": "com.sas.webapp",
+    "packageFolder": "com/sas/webapp",
+    "authenticationType": "session",
+    "hibernateCache": "ehcache",
+    "clusteredHttpSession": "no",
+    "websocket": "no",
+    "databaseType": "sql",
+    "devDatabaseType": "mysql",
+    "prodDatabaseType": "mysql",
+    "useCompass": false,
+    "buildTool": "maven",
+    "frontendBuilder": "grunt",
+    "javaVersion": "7",
+    "rememberMeKey": "3f10a366a7f51ee106c974e9536cb011cf22c771"
+  }
+}
