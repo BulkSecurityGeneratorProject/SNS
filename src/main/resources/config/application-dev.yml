@@ -4,7 +4,7 @@ server:
 spring:
     profiles:
         active: dev
-     
+    
     datasource:
         dataSourceClassName: com.mysql.jdbc.jdbc2.optional.MysqlDataSource
         url: jdbc:mysql://localhost:3306/SolveAndShare

@@ -10,4 +10,12 @@ angular.module('solveandshareApp')
             Auth.logout();
             $state.go('home');
         };
+        
+        $scope.links = [{
+        		url : 'http://www.facebook.com',
+        		name : 'Facebook'
+        	},{ 
+        		url :'http://www.google.com',
+        		name : 'Google'
+        	}];
     });
