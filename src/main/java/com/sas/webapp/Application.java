@@ -22,7 +22,7 @@ import java.util.Arrays;
 public class Application {
 
     private final Logger log = LoggerFactory.getLogger(Application.class);
-
+    //commit deniyoruz
     @Inject
     private Environment env;
 
