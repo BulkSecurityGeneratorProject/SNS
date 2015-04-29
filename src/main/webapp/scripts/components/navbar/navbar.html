@@ -16,20 +16,30 @@
                         <span class="glyphicon glyphicon-home"></span>
                         <span translate="global.menu.home">Home</span>
                     </a>
-                </li>
-                <li ui-sref-active="active" ng-switch-when="true" class="dropdown pointer">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="">
-                                <span>
-                                    <span class="glyphicon glyphicon-th-list"></span>
-                                    <span class="hidden-tablet" translate="global.menu.entities.main">
-                                        Entities
-                                    </span>
-                                    <b class="caret"></b>
-                                </span>
+                <li ui-sref-active="active">
+                    <a ui-sref="solvequestion">
+                        <span class="glyphicon glyphicon-hand-up"></span>
+                        <span class="hidden-tablet">ASK</span>                       
                     </a>
-                    <ul class="dropdown-menu">
-                        <!-- JHipster will add entities to the menu here -->
-                    </ul>
+                </li>
+                <li ui-sref-active="active">
+                    <a ui-sref="solvequestion">
+                        <span class="glyphicon glyphicon-hand-down"></span>
+                        <span class="hidden-tablet">SOLVE</span>                       
+                    </a>
+                </li>
+                </li>
+                <li ui-sref-active="active">
+                    <a ui-sref="solvequestion">
+                        <span class="glyphicon glyphicon-eye-open"></span>
+                        <span class="hidden-tablet">My Profil</span>                       
+                    </a>
+                </li>
+                <li ui-sref-active="active">
+                    <a ui-sref="solvequestion">
+                        <span class="glyphicon glyphicon-fire"></span>
+                        <span class="hidden-tablet">My Questions</span>                       
+                    </a>
                 </li>
                 <li ng-class="{active: $state.includes('account')}" class="dropdown pointer">
                     <a class="dropdown-toggle" data-toggle="dropdown" href="">
@@ -79,28 +89,15 @@
                         <li ui-sref-active="active"><a ui-sref="docs"><span class="glyphicon glyphicon-book"></span>
                             &#xA0;<span translate="global.menu.admin.apidocs">API Docs</span></a></li>
                     </ul>
-                </li>
-                <li ui-sref-active="active" class="dropdown pointer" ng-controller="LanguageController">
-                    <a class="dropdown-toggle" data-toggle="dropdown" href="">
-                                <span>
-                                    <span class="glyphicon glyphicon-flag"></span>
-                                    <span class="hidden-tablet" translate="global.menu.language">Language</span>
-                                    <b class="caret"></b>
-                                </span>
-                    </a>
-                    <ul class="dropdown-menu">
-                        <li active-menu="{{language}}" ng-repeat="language in languages">
-                            <a href="" ng-click="changeLanguage(language)">{{'language.' + language| translate}}</a>
-                        </li>
-                    </ul>
-                </li>
-                <li ui-sref-active="active" ui-sref="solvequestion" class="dropdown pointer">
-					<span>
-                           <span class="glyphicon glyphicon-leaf"></span>
-                           <span class="hidden-tablet">Soru sayfasi</span>
-                           <b class="caret"></b>
-                     </span>
-                </li>
+                </li>         
+                <!--  <li ui-sref-active="active">
+                    <a ui-sref="solvequestion">
+                       <span class="glyphicon glyphicon-leaf"></span>
+                       <span class="hidden-tablet">Soru sayfasi</span>                       
+                   </a>
+                   </li>
+                  -->
+                
             </ul>
         </div>
     </div>
