@@ -16,4 +16,9 @@ angular.module('solveandshareApp')
         	});
         }
         
+        $scope.upload = function(){
+        	console.log($scope.questionPic);
+        }
+        
+        
     });

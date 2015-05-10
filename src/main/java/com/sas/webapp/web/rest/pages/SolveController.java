@@ -8,13 +8,17 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.sas.webapp.domain.User;
-import com.sas.webapp.repository.pages.SolveQuestionRepository;
+import com.sas.webapp.repository.pages.SolveRepository;
 
 @RestController
-public class SolveQuestionController {
+public class SolveController {
 	
 	@Inject
-	SolveQuestionRepository repo;
+	SolveRepository repo;
 	
-	
+	@RequestMapping(value = "/getUsers", method = RequestMethod.GET)
+	public User getUsers(@RequestParam int userId){
+		User user = repo.findById((long)userId);
+		return user;
+	}
 }

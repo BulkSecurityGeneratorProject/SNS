@@ -1,0 +1,18 @@
+
+	<div class="container">
+ 		<div class="fileUpload btn btn-warning">
+    		<span>Upload a question</span>
+    		<input type="file" class="upload" fileread="uploadme" /> 
+    		 	
+		</div>		
+		<img style="max-height: 50px; max-width: 50px;"  ng-src="{{uploadme}}"></img> 
+		<div class="b">
+			<p class="ib">Bir Konu Sec : </p>
+				<select ng-model="selectedCourse" ng-options="course.id as course.courseName for course in courses"></select>
+				
+		</div>		    	
+		<div class="c">
+			<button type="button" class="btn btn-primary" ng-click="upload()">Soru Ekle</button>  				
+		</div>
+	</div>
+

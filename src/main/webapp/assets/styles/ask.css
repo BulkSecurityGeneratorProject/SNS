@@ -1,0 +1,36 @@
+.b {
+	
+	font-style: italic;
+	margin-top:50px;
+	margin-left:100px;	
+}
+
+		
+
+.c {
+	margin-bottom:100px;
+	margin-top:50px;
+	margin-left:100px;
+
+
+
+}
+.fileUpload {
+    position: relative;
+    overflow: hidden;
+    margin: 10px;
+    margin-top:100px;
+	margin-left:100px;
+}
+.fileUpload input.upload {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin: 0;
+    padding: 0;
+    font-size: 20px;
+    cursor: pointer;
+    opacity: 0;
+    filter: alpha(opacity=0);
+}
+
