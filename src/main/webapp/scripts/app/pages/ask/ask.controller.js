@@ -2,7 +2,7 @@
 
 angular.module('solveandshareApp')
     .controller('AskController',  function MyController($scope, $http) {
-    	
+    		$scope.questionOptions = [];
             $scope.vari = "ask html";
             $scope.user = {
             		firstName : 'Bünyamin',
@@ -27,6 +27,31 @@ angular.module('solveandshareApp')
             		$scope.isUploadedSuccessfully = data.data;
             	});
             }
+            
+            $scope.pushOption = function(option){
+            	var opt = {
+            			id : $scope.questionOptions.length,
+            			text : option
+            	}
+            	$scope.optionId++;
+            	
+            	$scope.questionOptions.push(opt);
+            	$scope.option = null;
+            }
+            
+            $scope.updateOption = function(option, index){
+            	$scope.questionOptions[index].text = option;
+            }
+            
+            $scope.removeOption = function(option){
+            	$scope.questionOptions.splice(option.id, 1);
+            	angular.forEach($scope.questionOptions, function(option, i){
+            		option.id = i;
+            	});
+            }
+            
+            
+            
             
             
         

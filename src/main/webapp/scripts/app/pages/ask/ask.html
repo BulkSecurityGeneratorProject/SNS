@@ -1,17 +1,34 @@
-
-	<div class="container">
- 		<div class="fileUpload btn btn-warning">
-    		<span>Upload a question</span>
+	<meta http-equiv="Content-Type" content="text/html;charset=UTF-8"/>
+	<div class="row container">
+ 		<div class="fileUpload btn btn-warning row">
+    		<span class="mt20">Upload a question</span>
     		<input type="file" class="upload" fileread="uploadme" /> 
     		 	
-		</div>		
-		<img style="max-height: 50px; max-width: 50px;"  ng-src="{{uploadme}}"></img> 
-		<div class="b">
-			<p class="ib">Bir Konu Sec : </p>
+		</div>
+		<div class="row col-xs-12 mt20">	
+			<img ng-src="{{uploadme}}"></img>
+		 
+		</div>	
+		<div class="row col-xs-12 mt20">
+			<p>Bir Konu Seçin : </p>
 				<select ng-model="selectedCourse" ng-options="course.id as course.courseName for course in courses"></select>
 				
+		</div>
+		<div class="row mt20 col-xs-12">
+			<input type="text" class="col-xs-12"  placeholder="Soru hakkında birşeyler yazın"/>
+			<div class="row mt20 col-xs-12">
+				<div class="row ml1">
+					<input type="text" class="col-xs-11 mt20" placeholder="Bir seçenek girin" ng-model="option"/>
+					<button type="button" ng-click="pushOption(option);" class="glyphicon glyphicon-plus col-xs-1 ml5 add-option"></button>
+			
+				</div>
+				<div class="row col-xs-12 mt20" ng-repeat="option in questionOptions">
+					<input type="text" class="col-xs-11 ng-valid ng-dirty" ng-model="option.text" ng-change="updateOption(option.text, $index);" value="{{option.text}}" />
+					<button type="button" ng-click="removeOption(option);" class="glyphicon glyphicon-minus col-xs-1 ml5 add-option"></button>
+				</div>
+			</div>
 		</div>		    	
-		<div class="c">
+		<div class="row col-xs-12 mt50">
 			<button type="button" class="btn btn-primary" ng-click="upload()">Soru Ekle</button>  				
 		</div>
 	</div>

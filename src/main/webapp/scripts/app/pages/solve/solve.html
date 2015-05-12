@@ -1,6 +1,14 @@
+
 <div class="container">
- 		<div>
-			<p class="ib">Bir Konu Sec : </p>
+ 		<div class="s1">
+			<p>Bir Konu Sec : </p>
 				<select ng-model="selectedCourse" ng-options="course.id as course.courseName for course in courses"></select>
-		</div>		    	
+		</div>
+		<div class="s2">
+			<ul>
+  				<li ng-repeat="country in countries">
+    				<a href="#/{{user.name}}">{{user.name}}</a>
+  				</li>
+			</ul>		
+		</div>	    	
 </div>

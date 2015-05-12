@@ -1,27 +1,13 @@
 'use strict';
 
 angular.module('solveandshareApp')
-    .controller('SolveController',  function MyController($scope) {
-    	
-            $scope.vari = "solve html";
-            $scope.user = {
-            		firstName : 'Bünyamin',
-            		lastName : 'Coşkuner'
-            };
-            
-            var input = 3;
-            $scope.getUsers = function(){
-            	console.log("tıkladım");
-            	$http.get('/pages/getUsers?userId=' + input).then(function(data){
-            		$scope.user = data.data;
-            	});
-            }
-            
-            $scope.upload = function(){
-            	console.log($scope.questionPic);
-            }
-            
-            
+        .controller('SolveController',  function MyController($scope, $http) {           
+        $scope.getUsers = function(){
+        	
+        $http.get('/assets/data/countries.json').then(function(data){
+        $scope.user = data.data;
+        });
+        }    
         
     	$scope.courses = [
         {

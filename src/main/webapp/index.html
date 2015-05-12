@@ -4,6 +4,7 @@
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
 <!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
     <head>
+        
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <title>SolveAndShare</title>
@@ -18,6 +19,8 @@
         <!-- build:css assets/styles/main.css -->
         <link rel="stylesheet" href="assets/styles/main.css">
         <link rel="stylesheet" href="assets/styles/ask.css">
+        <link rel="stylesheet" href="assets/styles/solve.css">
+        <link rel="stylesheet" href="assets/styles/myprofile.css">
         <!-- endbuild -->
     </head>
     <body ng-app="solveandshareApp" class="IndexPage">
@@ -31,8 +34,8 @@
 
            <!-- <div class="footer">
                 <p translate=""></p>
-            </div>
-        </div>-->
+            </div>-->
+        </div>
 
         <!-- Google Analytics: uncomment and change UA-XXXXX-X to be your site's ID.
         <script>
@@ -45,6 +48,7 @@
         </script>-->
 
         <!-- build:js scripts/vendor.js -->
+
         <!-- bower:js -->
         <script src="bower_components/modernizr/modernizr.js"></script>
         <script src="bower_components/jquery/dist/jquery.js"></script>
@@ -61,6 +65,8 @@
         <script src="bower_components/angular-dynamic-locale/src/tmhDynamicLocale.js"></script>
         <script src="bower_components/angular-local-storage/dist/angular-local-storage.js"></script>
         <script src="bower_components/angular-cache-buster/angular-cache-buster.js"></script>
+        <script src="bower_components/angular/angular-animate.min.js"></script>
+	    <script src="bower_components/angular/angular-touch.min.js"></script>
         <!-- endbower -->
         <!-- endbuild -->
 
@@ -129,5 +135,9 @@
         <script src="scripts/app/pages/ask/ask.directive.js"></script>
         <script src="scripts/app/pages/solve/solve.js"></script>
         <script src="scripts/app/pages/solve/solve.controller.js"></script>
+        <script src="scripts/app/pages/myprofile/myprofile.js"></script>
+        <script src="scripts/app/pages/myprofile/myprofile.controller.js"></script>
+        
+        
 </body>
 </html>
