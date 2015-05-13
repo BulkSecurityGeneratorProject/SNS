@@ -1,4 +1,6 @@
-
+ul{
+	list-style-type: none;
+}
 .fileUpload {
     position: relative;
     overflow: hidden;
@@ -90,4 +92,16 @@ input[type="text"] {
 .add-option{
 	max-width:50px;
 	height:38px;
+}
+.mw400 {
+	max-width: 400px;
+	
+}
+.mh400 {
+	max-height: 400px;
+	
+}
+
+.chosenAnswer {
+	border-color:#ff3300;
 }

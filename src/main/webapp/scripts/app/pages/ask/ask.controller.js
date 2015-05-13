@@ -3,6 +3,7 @@
 angular.module('solveandshareApp')
     .controller('AskController',  function MyController($scope, $http) {
     		$scope.questionOptions = [];
+    		$scope.chosenAnswer = 0;
             $scope.vari = "ask html";
             $scope.user = {
             		firstName : 'Bünyamin',
@@ -16,6 +17,11 @@ angular.module('solveandshareApp')
             		$scope.user = data.data;
             	});
             }
+            
+            $scope.updateAnswerId = function(index){
+            	$scope.chosenAnswer = index;
+            }
+            
             
             $scope.upload = function(){
             	var fd = new FormData();
@@ -66,7 +72,7 @@ angular.module('solveandshareApp')
         },
         {
           "courseId": 2,
-          "courseName": "Geometri"
+          "courseName": "Felsefe"
         },
         {
           "courseId": 3,
@@ -90,7 +96,7 @@ angular.module('solveandshareApp')
         },
         {
           "courseId": 8,
-          "courseName": "Felsefe"
+          "courseName": "Geometri"
         }
       ];
   });

@@ -6,7 +6,7 @@
     		 	
 		</div>
 		<div class="row col-xs-12 mt20">	
-			<img ng-src="{{uploadme}}"></img>
+			<img class="mw400 mh400" ng-src="{{uploadme}}"></img>
 		 
 		</div>	
 		<div class="row col-xs-12 mt20">
@@ -23,7 +23,9 @@
 			
 				</div>
 				<div class="row col-xs-12 mt20" ng-repeat="option in questionOptions">
-					<input type="text" class="col-xs-11 ng-valid ng-dirty" ng-model="option.text" ng-change="updateOption(option.text, $index);" value="{{option.text}}" />
+					<input type="text" class="col-xs-11 ng-valid ng-dirty" ng-class="{chosenAnswer: $index == chosenAnswer }"
+						ng-model="option.text" ng-change="updateOption(option.text, $index);" value="{{option.text}}" 
+						ng-click="updateAnswerId($index);"/>
 					<button type="button" ng-click="removeOption(option);" class="glyphicon glyphicon-minus col-xs-1 ml5 add-option"></button>
 				</div>
 			</div>
