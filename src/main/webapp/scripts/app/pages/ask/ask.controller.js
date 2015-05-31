@@ -10,13 +10,12 @@ angular.module('solveandshareApp')
             		lastName : 'Coşkuner'
             };
             
-            var input = 3;
-            $scope.getUsers = function(){
-            	console.log("tıkladım");
-            	$http.get('/pages/getUsers?userId=' + input).then(function(data){
-            		$scope.user = data.data;
-            	});
-            }
+            
+           
+            $http.get('/getLessons').then(function(data){
+            	$scope.lessons = data.data;
+            });
+            
             
             $scope.updateAnswerId = function(index){
             	$scope.chosenAnswer = index;
@@ -24,15 +23,23 @@ angular.module('solveandshareApp')
             
             
             $scope.upload = function(){
+            	var question = {
+        			questionDef : $scope.questionDef,
+        			questionValue : 0,
+        			tLessonId : $scope.selectedLesson.id
+            	};
             	var fd = new FormData();
                 fd.append('file', $scope.uploadme);
-            	$http.post('/pages/question/upload', fd, {
-                    transformRequest: angular.identity,
-                    headers: {'Content-Type': 'image/jpg'}
+                fd.append('question', JSON.stringify(question));
+            	      
+            	$http.post('/createQuestion', fd, {
+        			transformRequest : angular.identity,
+        			headers : {'Content-Type' : undefined}
             	}).then(function(data){
-            		$scope.isUploadedSuccessfully = data.data;
+            		alert(data.data.message);
             	});
             }
+            
             
             $scope.pushOption = function(option){
             	var opt = {
@@ -61,7 +68,7 @@ angular.module('solveandshareApp')
             
             
         
-    	$scope.courses = [
+    	/*$scope.courses = [
         {
           "courseId": 0,
           "courseName": "Matematik"
@@ -98,7 +105,7 @@ angular.module('solveandshareApp')
           "courseId": 8,
           "courseName": "Geometri"
         }
-      ];
+      ];*/
   });
     
  

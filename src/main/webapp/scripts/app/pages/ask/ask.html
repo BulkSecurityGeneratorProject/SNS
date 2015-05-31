@@ -2,20 +2,20 @@
 	<div class="row container">
  		<div class="fileUpload btn btn-warning row">
     		<span class="mt20">Upload a question</span>
-    		<input type="file" class="upload" fileread="uploadme" /> 
+    		<input type="file" class="upload" file-model="uploadme"/> 
     		 	
 		</div>
 		<div class="row col-xs-12 mt20">	
-			<img class="mw400 mh400" ng-src="{{uploadme}}"></img>
+			<img class="mw400 mh400" ng-src="{{questionPic}}"></img>
 		 
 		</div>	
 		<div class="row col-xs-12 mt20">
-			<p>Bir Konu Seçin : </p>
-				<select ng-model="selectedCourse" ng-options="course.id as course.courseName for course in courses"></select>
+			<p>Bir Ders Seçin : </p>
+				<select ng-model="selectedLesson" ng-init="selectedLesson.lessonName = 'Seçiniz...'" ng-options="lesson as lesson.lessonName for lesson in lessons"></select>
 				
 		</div>
 		<div class="row mt20 col-xs-12">
-			<input type="text" class="col-xs-12"  placeholder="Soru hakkında birşeyler yazın"/>
+			<input type="text" class="col-xs-12" ng-model="questionDef"  placeholder="Soru hakkında birşeyler yazın"/>
 			<div class="row mt20 col-xs-12">
 				<div class="row ml1">
 					<input type="text" class="col-xs-11 mt20" placeholder="Bir seçenek girin" ng-model="option"/>
