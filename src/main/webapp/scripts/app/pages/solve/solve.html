@@ -1,57 +1,54 @@
 <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
-<div class="ml10">
-	<p>Bir Konu Sec :</p>
-	<select ng-model="selectedCourse"
-		ng-options="course.id as course.courseName for course in courses"></select>
-</div>
-
-<div class="container slider">
-
-
-	<!-- enumerate all photos -->
-	<img ng-repeat="question in questions" class="slide "
-		style="height: 500px; width: 770px;" ng-swipe-right="showPrev()"
-		ng-swipe-left="showNext()" ng-show="isActive($index)"
-		ng-src="{{question.imgSrc}}" />
-
-	<!-- prev / next controls -->
-	<a class="arrow prev" href="#" ng-click="showPrev()"></a> <a
-		class="arrow next" href="#" ng-click="showNext()"></a>
-
-	<!-- extra navigation controls 
-	<ul class="navv">
-		<li ng-repeat="question in questions"
-			ng-class="{'active':isActive($index)}"><img
-			ng-src="{{question.imgSrc}}" ng-click="showPhoto($index);" /></li>
-	</ul>-->
+<div class="row col-xs-12 mt20">
+	<p>Bir Ders Seçin :</p>
+	<select ng-model="selectedLesson"
+		ng-init="selectedLesson.lessonName = 'Seçiniz...'"
+		ng-options="lesson as lesson.lessonName for lesson in lessons"
+		ng-change="changeLesson(selectedLesson);"></select>
 
 </div>
 <div ng-if="questions">
-	<p style="margin-top: 40px;">{{currentQuestion.description}}</p>
-	<ul ng-repeat="option in currentQuestion.options">
-		<li><input type="radio" ng-model="radioOption"
-			ng-value="option.text" />{{option.text}}</li>
-	</ul>
-</div>
-<div>
-	<input type="text" style="border: 2px solid #456879;
-  border-radius: 10px;
-  height: 44px;
-  width: 457px;" placeholder="Soru ile ilgili cevabınızı bu alana girebilirsiniz." />
-	<button class="abt" type="button" >Add image</button>
-	<button class="abt" type="button" >Post your answer</button>
+	<div class="container slider">
 
+		<!-- enumerate all photos -->
+		<img ng-repeat="question in questions" class="slide "
+			style="height: 500px; width: 770px;" ng-swipe-right="showPrev()"
+			ng-swipe-left="showNext()" ng-show="isActive($index)"
+			ng-src="data:image/JPEG;base64,{{question.questionPic}}" ng-if="question.questionPic" />
+
+		<!-- prev / next controls -->
+		<a class="arrow prev" href="#" ng-click="showPrev()"></a> <a
+			class="arrow next" href="#" ng-click="showNext()"></a>
+
+
+	</div>
+	<div>
+		<p style="margin-top: 40px;">{{currentQuestion.questionDef}}</p>
+	</div>
+	<div class="row col-xs-12 mt20">	
+			<img class="mw400 mh400" ng-src="{{questionPic}}"></img>
+		 
+		</div>	
+	<div>
+		<input type="text" style="border: 2px solid #456879;" ng-model="commentColumn.text" placeholder="Soru ile ilgili cevabınızı bu alana girebilirsiniz." />
+		<div class="fileUpload btn btn-warning row">
+			<span class="mt20">Add image</span> <input type="file" class="upload"
+				file-model="uploadme" />
+
+		</div>
+		<button class="btn btn-primary" type="button" ng-click="upload()">Post
+			your answer</button>
+
+	</div>
+	<div ng-if="currentQuestion.comments">
+		<ul ng-repeat="comment in currentQuestion.comments" class="mt20">
+			<li stlye="border-top: 1px solid black;"><input type="checkbox"
+				class="ib roundcbox" />
+				<p class="ib">{{comment.commentColumn}}</p> <br /> <i>{{comment.tUserId}},
+					Tarih : {{comment.commentDate | date : 'dd MMMM yyyy hh:mm:ss'}}</i>
+				<hr style="background-color: #000" /></li>
+		</ul>
+		<button class="abt2">Update answers</button>
+	</div>
 </div>
-<div>
-	<ul ng-repeat="comment in comments" class="mt20">
-		<li stlye="border-top: 1px solid black;">
-			<input type="checkbox" class="ib roundcbox"/>
-			<p class="ib">{{comment.comment}}</p>
-			<br/>
-			<i>{{comment.userName}}, Tarih : {{comment.date | date : 'dd MMMM yyyy hh:mm:ss'}}</i>
-			<hr style="background-color: #000"/>
-			
-		</li>
-	</ul>
-	<button class="abt2" )>Update answers</button>
-</div>
+

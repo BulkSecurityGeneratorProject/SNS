@@ -17,29 +17,29 @@ import org.springframework.web.multipart.MultipartFile;
 import com.fasterxml.jackson.core.JsonParseException;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sas.webapp.domain.Question;
+import com.sas.webapp.domain.Comment;
 import com.sas.webapp.domain.SASResponse;
-import com.sas.webapp.repository.pages.QuestionRepository;
+import com.sas.webapp.repository.pages.CommentRepository;
 
 @RestController
-public class QuestionController {
-
-	@Inject
-	private QuestionRepository questionRepository;
+public class CommentController {
 	
-	@RequestMapping(value = "/createQuestion", method = RequestMethod.POST)
-	public SASResponse createQuestion(	@RequestParam(value = "file", required = true) MultipartFile file,
-									@RequestParam(value = "question", required = true) String serializedQuestion
+	@Inject
+	private CommentRepository commentRepository;
+	@RequestMapping(value = "/createComment", method = RequestMethod.POST)
+	public SASResponse createComment(	@RequestParam(value = "file", required = false) MultipartFile file,
+									@RequestParam(value = "comment", required = true) String serializedComment
 			) throws JsonParseException, JsonMappingException, IOException, SerialException, SQLException{
 		// TODO : user id sessiondan alınacak
 		ObjectMapper mapper = new ObjectMapper();
-		Question question = mapper.readValue(serializedQuestion, Question.class);
-		question.settUserId(4L);
-		question.settLessonId(1L);
-		question.setQuestionDate(Calendar.getInstance().getTime());
-		question.setQuestionPic(file.getBytes());
-		Question q = questionRepository.save(question); 
-		System.out.println(q.getQuestionDef());
+		Comment comment = mapper.readValue(serializedComment, Comment.class);
+		comment.settUserId(4L);
+		comment.setCommentDate(Calendar.getInstance().getTime());
+		if(file != null){
+			comment.setCommentPic(file.getBytes());
+		}
+		Comment q =commentRepository.save(comment); 
+		System.out.println(q.getCommentColumn());
 		
 		/*
 		 * 
@@ -56,11 +56,10 @@ public class QuestionController {
 		return SASResponse.createSuccessResponse();
 	}
 	
-	@RequestMapping(value = "/getQuestionsByLessonId", method = RequestMethod.GET)
-	public List<Question> getQuestionsByLessonId(
-			@RequestParam(value = "lessonId", required = true) Long lessonId){	
-		List<Question> q3 = questionRepository.findByTLessonId(lessonId); 
-		return q3;
+	@RequestMapping(value = "/getCommentsByQuestionId", method = RequestMethod.GET)
+	public List<Comment> getComments(@RequestParam Long questionId){
+		List<Comment> comments = commentRepository.findByTQuestionId(questionId); 
+		return comments;
 	}	
 	
 }

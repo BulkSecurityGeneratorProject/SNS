@@ -12,7 +12,7 @@ import com.sas.webapp.domain.Lesson;
 import com.sas.webapp.repository.LessonRepository;
 
 @RestController
-public class LesssonController {
+public class LessonController {
 	
 	@Inject
 	private LessonRepository lessonRepository;
