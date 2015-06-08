@@ -1,54 +1,52 @@
+
 <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
-<div class="row col-xs-12 mt20">
-	<p>Bir Ders Seçin :</p>
-	<select ng-model="selectedLesson"
-		ng-init="selectedLesson.lessonName = 'Seçiniz...'"
-		ng-options="lesson as lesson.lessonName for lesson in lessons"
-		ng-change="changeLesson(selectedLesson);"></select>
-
-</div>
-<div ng-if="questions">
-	<div class="container slider">
-
-		<!-- enumerate all photos -->
-		<img ng-repeat="question in questions" class="slide "
-			style="height: 500px; width: 770px;" ng-swipe-right="showPrev()"
-			ng-swipe-left="showNext()" ng-show="isActive($index)"
-			ng-src="data:image/JPEG;base64,{{question.questionPic}}" ng-if="question.questionPic" />
-
-		<!-- prev / next controls -->
-		<a class="arrow prev" href="#" ng-click="showPrev()"></a> <a
-			class="arrow next" href="#" ng-click="showNext()"></a>
-
-
+<div class="row container">
+	<div class="row col-xs-6 mt20">
+		<p class="row col-xs-3">Bir Ders Seçin :</p>
+		<select class="col-xs-3" ng-model="selectedLesson"
+			ng-init="selectedLesson.lessonName = 'Seçiniz...'"
+			ng-options="lesson as lesson.lessonName for lesson in lessons"
+			ng-change="changeLesson(selectedLesson);"></select>
 	</div>
-	<div>
-		<p style="margin-top: 40px;">{{currentQuestion.questionDef}}</p>
-	</div>
-	<div class="row col-xs-12 mt20">	
-			<img class="mw400 mh400" ng-src="{{questionPic}}"></img>
-		 
-		</div>	
-	<div>
-		<input type="text" style="border: 2px solid #456879;" ng-model="commentColumn.text" placeholder="Soru ile ilgili cevabınızı bu alana girebilirsiniz." />
-		<div class="fileUpload btn btn-warning row">
-			<span class="mt20">Add image</span> <input type="file" class="upload"
-				file-model="uploadme" />
+	<div class="row col-xs-12 mt10" ng-if="questions">
+		<div class="container slider">
+			<!-- enumerate all photos -->
+			<img class="slide "
+				style="height: 470px; width: 770px;" ng-swipe-right="showPrev()"
+				ng-swipe-left="showNext()" ng-src="data:image/JPEG;base64,{{currentQuestion.questionPic}}"
+				ng-if="currentQuestion.questionPic" />
 
+			<!-- prev / next controls -->
+			<a class="arrow prev" href="#" ng-click="showPrev()"></a> 
+			<a class="arrow next" href="#" ng-click="showNext()"></a>
+			
 		</div>
-		<button class="btn btn-primary" type="button" ng-click="upload()">Post
-			your answer</button>
-
+		<div class="row col-xs-12 mt20">
+			<p>{{currentQuestion.questionDef}}</p>
+		</div>
 	</div>
-	<div ng-if="currentQuestion.comments">
-		<ul ng-repeat="comment in currentQuestion.comments" class="mt20">
-			<li stlye="border-top: 1px solid black;"><input type="checkbox"
-				class="ib roundcbox" />
-				<p class="ib">{{comment.commentColumn}}</p> <br /> <i>{{comment.tUserId}},
-					Tarih : {{comment.commentDate | date : 'dd MMMM yyyy hh:mm:ss'}}</i>
+	<div ng-show="questions" class="row col-xs-12 mt10">
+		<img class="mw400 mh400" ng-if="questionPic" ng-src="{{questionPic}}"></img>
+	</div>
+	<div ng-show="init" class="row col-xs-12 mt10">
+		<input type="text" style="border: 2px solid #456879;"
+				ng-model="commentColumn"
+				placeholder="Soru ile ilgili cevabınızı bu alana girebilirsiniz." />
+		<div class="fileUpload btt col-xs-2 mt5">
+			<span class="mt5 text-left">Resim Yükle</span> 
+			<input type="file" class="upload" file-model="uploadme" />
+		</div>
+		<button class="btt mt5 col-xs-1 ml5" type="button" ng-click="upload()">Gönder</button>
+		
+	</div>
+	<div class="row col-xs-12 mt10">
+		<ul ng-repeat="comment in currentQuestion.comments | orderBy:'-comment.commentDate'" class="row col-xs-12 mt20">
+			<img ng-if="comment.comment.commentPic" class="row mw300 mh300 ml10" ng-src="data:image/JPEG;base64,{{comment.comment.commentPic}}"></img>
+			<li stlye="border-top: 1px solid black;"><input type="checkbox"	class="ib roundcbox mt20" ng-checked="comment.comment.commentValue" ng-disabled="trueVal"/>
+				<p class="ib">{{comment.comment.commentColumn}}</p> <br /> <i>{{comment.userFirstName}} {{comment.userLastName}},
+					Tarih : {{comment.comment.commentDate | date : 'dd MMMM yyyy hh:mm:ss'}}</i>
 				<hr style="background-color: #000" /></li>
 		</ul>
-		<button class="abt2">Update answers</button>
 	</div>
-</div>
 
+</div>

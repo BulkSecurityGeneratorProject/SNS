@@ -3,16 +3,16 @@
 angular.module('solveandshareApp')
     .config(function ($stateProvider) {
         $stateProvider
-            .state('myprofile', {
+            .state('myquestions', {
                 parent: 'pages',
-                url: '/myprofile',
+                url: '/myquestions',
                 data: {
                     roles: ['ROLE_USER']
                 },
                 views: {
                     'content@': {
-                        templateUrl: 'scripts/app/pages/myprofile/myprofile.html',
-                        controller: 'MyprofileController'
+                        templateUrl: 'scripts/app/pages/myquestions/myquestions.html',
+                        controller: 'MyQuestionsController'
                     }
                 },
                 resolve: {

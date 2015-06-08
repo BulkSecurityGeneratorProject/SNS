@@ -3,14 +3,7 @@
 angular.module('solveandshareApp')
     .controller('AskController',  function MyController($scope, $http) {
     		$scope.questionOptions = [];
-    		$scope.chosenAnswer = 0;
-            $scope.vari = "ask html";
-            $scope.user = {
-            		firstName : 'Bünyamin',
-            		lastName : 'Coşkuner'
-            };
-            
-            
+    		$scope.chosenAnswer = 0; 
            
             $http.get('/getLessons').then(function(data){
             	$scope.lessons = data.data;

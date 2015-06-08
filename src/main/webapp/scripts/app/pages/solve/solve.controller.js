@@ -3,31 +3,33 @@
 	angular.module('solveandshareApp')
 	  .controller('SolveController', function ($scope, $http) {
 	 
-		/*$http.get('/assets/data/questions.json').then(function(data){
-			$scope.questions = data.data;
-			$scope.currentQuestion = $scope.questions[0];
-		});
+		$http.get('/getLessons').then(function(data){
+	    	$scope.lessons = data.data;
+	    });
 		
-		$http.get('/assets/data/comments.json').then(function(data){
-			$scope.comments = data.data;
-		});*/
+		$scope.trueVal = true;
+		$scope.falseVal = false;
 		
+		$scope.init = false;
+		$scope._Index = 0;
+
 		$scope.changeLesson = function(selectedLesson){
+			if(!$scope.init){
+				$scope.init = true;
+			}
+			
 			$scope.questions = null;
 			$http.get('/getQuestionsByLessonId?lessonId=' + selectedLesson.id).then(function(data){
 				$scope.questions = data.data;
 				$scope.currentQuestion = $scope.questions[0];
-				$http.get('/getCommentsByQuestionId?questionId=' + $scope.questions[0].id).then(function(data){
+				$http.get('/getCommentsByQuestionId?questionId=' + $scope.currentQuestion.id).then(function(data){
 					$scope.currentQuestion.comments = data.data;
 				});
 			});
 			
 	    }
-	 
-	    // initial image index
-	    $scope._Index = 0;
-	 
-	    // if a current image is the same as requested image
+		
+	     // if a current image is the same as requested image
 	    $scope.isActive = function (index) {
 	        return $scope._Index === index;
 	    };
@@ -35,10 +37,13 @@
 	    // show prev image
 	    $scope.showPrev = function () {
 	        $scope._Index = ($scope._Index > 0) ? --$scope._Index : $scope.questions.length - 1;
+	        $scope.currentQuestion = {};
 	        $scope.currentQuestion = $scope.questions[$scope._Index];
-	        if(!$scope.currentQuestion.comments){
-	        	$http.get('/getCommentsByQuestionId?questionId=' + $scope.questions[0].id).then(function(data){
-					$scope.currentQuestion.comments = data.data;
+	        if(!$scope.currentQuestion.comments || $scope.currentQuestion.comments.length == 0){
+	        	$http.get('/getCommentsByQuestionId?questionId=' + $scope.currentQuestion.id).then(function(data){
+	        		if(data.data.length > 0){
+	        			$scope.currentQuestion.comments = data.data;
+	        		}
 				});
 	        }        
 	    };
@@ -46,10 +51,13 @@
 	    // show next image
 	    $scope.showNext = function () {
 	        $scope._Index = ($scope._Index < $scope.questions.length - 1) ? ++$scope._Index : 0;
+	        $scope.currentQuestion = {};
 	        $scope.currentQuestion = $scope.questions[$scope._Index];
-	        if(!$scope.currentQuestion.comments){
-	        	$http.get('/getCommentsByQuestionId?questionId=' + $scope.questions[0].id).then(function(data){
-					$scope.currentQuestion.comments = data.data;
+	        if(!$scope.currentQuestion.comments || $scope.currentQuestion.comments.length == 0){
+	        	$http.get('/getCommentsByQuestionId?questionId=' + $scope.currentQuestion.id).then(function(data){
+	        		if(data.data.length > 0){
+	        			$scope.currentQuestion.comments = data.data;
+	        		}
 				});
 	        }
 	    };
@@ -58,15 +66,11 @@
 	    $scope.showPhoto = function (index) {
 	        $scope._Index = index;
 	    };
-        
-	    $http.get('/getLessons').then(function(data){
-	    	$scope.lessons = data.data;
-	    });
-	    
+	 
 	    $scope.upload = function(){
 	    	var comment = {
-	    			commentColumn : $scope.commentColumn.text,
-	    			tQuestionId : $scope.currentQuestion.id
+    			commentColumn : $scope.commentColumn,
+    			tQuestionId : $scope.currentQuestion.id
 	    	};
 	    	var fd = new FormData();
 	    	fd.append('file', $scope.uploadme);
@@ -74,10 +78,18 @@
 	      
 	    	$http.post('/createComment', fd, {
 	    		transformRequest : angular.identity,
-	    		headers : {'Content-Type' : undefined}
+	    		headers : {'Content-Type': undefined}
 	    	}).then(function(data){
-	    		alert(data.data.message);
+	    		if(data.data){
+	    			$scope.currentQuestion.comments = null;
+	    			$scope.currentQuestion.comments = data.data;
+	    		}
 	    	});
+	    	
+	    	$scope.commentColumn = null;
+	    	$scope.uploadme = null;
+	    	$scope.questionPic = null;
+	    	
 	    }
 
   });

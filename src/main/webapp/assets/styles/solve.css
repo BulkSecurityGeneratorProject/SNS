@@ -158,6 +158,11 @@
 	width: 35px;
 	height: 27px;
 	background: #fcfff4;
+}
+
+.mb20{
+	margin-bottom: 20px;
+}
 
 
 .mt50{
@@ -177,4 +182,35 @@
 
 .ml3{
 	margin-left:3px;
+}
+
+.btt{
+	color: #fff;
+    background-color: #286090;
+    border-color: #204d74;
+    display: inline-block;
+	padding: 6px 12px;
+	margin-bottom: 0;
+	font-size: 14px;
+	font-weight: normal;
+	line-height: 1.42857143;
+	text-align: center;
+	white-space: nowrap;
+	vertical-align: middle;
+	font-family: inherit;
+	touch-action: manipulation;
+	cursor: pointer;
+	-webkit-user-select: none;
+	-webkit-appearance: button;
+	text-transform: none;
+	background-image: none;
+	border: 1px solid transparent;
+	border-radius: 4px;
+	overflow: visible;
+    font: inherit;
+    box-sizing: border-box;
+	
+	
+	
+	
 }

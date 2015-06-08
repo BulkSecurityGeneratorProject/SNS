@@ -13,7 +13,7 @@ public interface QuestionRepository extends JpaRepository<Question, Long> {
 	
 	public List<Question> findByQuestionDateBetween(Date sDate, Date eDate);
 	
-	public List<Question> findByTUserId(Long userId);
+	public List<Question> findByTUserIdAndTLessonId(Long userId, Long lessonId);
 	
 	public List<Question> findByTLessonId(Long lessonId);
 }

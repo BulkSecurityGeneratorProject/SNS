@@ -1,6 +1,7 @@
 package com.sas.webapp.web.rest.pages;
 
 import java.io.IOException;
+import java.nio.charset.Charset;
 import java.sql.SQLException;
 import java.util.Calendar;
 import java.util.List;
@@ -28,14 +29,15 @@ public class QuestionController {
 	private QuestionRepository questionRepository;
 	
 	@RequestMapping(value = "/createQuestion", method = RequestMethod.POST)
-	public SASResponse createQuestion(	@RequestParam(value = "file", required = true) MultipartFile file,
-									@RequestParam(value = "question", required = true) String serializedQuestion
+	public SASResponse createQuestion(	@RequestParam(value = "file", required = false) MultipartFile file,
+										@RequestParam(value = "question", required = true) String serializedQuestion
 			) throws JsonParseException, JsonMappingException, IOException, SerialException, SQLException{
 		// TODO : user id sessiondan alınacak
 		ObjectMapper mapper = new ObjectMapper();
-		Question question = mapper.readValue(serializedQuestion, Question.class);
+		Question question = mapper.readValue(serializedQuestion.getBytes(Charset.forName("UTF-8")), Question.class);
+		
 		question.settUserId(4L);
-		question.settLessonId(1L);
+		
 		question.setQuestionDate(Calendar.getInstance().getTime());
 		question.setQuestionPic(file.getBytes());
 		Question q = questionRepository.save(question); 
@@ -61,6 +63,13 @@ public class QuestionController {
 			@RequestParam(value = "lessonId", required = true) Long lessonId){	
 		List<Question> q3 = questionRepository.findByTLessonId(lessonId); 
 		return q3;
+	}	
+	
+	@RequestMapping(value = "/getQuestionsByUserId", method = RequestMethod.GET)
+	public List<Question> getQuestionsByUserIdAndLessonId(@RequestParam(value = "lessonId", required = true) Long lessonId){
+		Long userId = 4L; // TODO : sessiondan alınacak
+		List<Question> questionList = questionRepository.findByTUserIdAndTLessonId(userId, lessonId); 
+		return questionList;
 	}	
 	
 }

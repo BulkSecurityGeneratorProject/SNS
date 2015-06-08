@@ -33,7 +33,14 @@ public class Comment implements Serializable {
 	
 	@Column(name = "comment_pic")
 	private byte[] commentPic;
-
+	
+	@Column(name = "comment_value")
+	private Integer commentValue;
+	
+/*	@OneToOne
+	@JoinTable(name = "T_USER",
+            joinColumns = {@JoinColumn(name = "id", referencedColumnName = "t_user_id")})
+	private User user;*/
 
 	public Long getId() {
 		return id;
@@ -83,6 +90,23 @@ public class Comment implements Serializable {
 		this.commentPic = commentPic;
 	}
 
+	public Integer getCommentValue() {
+		return commentValue;
+	}
+
+	public void setCommentValue(Integer commentValue) {
+		this.commentValue = commentValue;
+	}
+
 	
+
+
+	/*public User getUser() {
+		return user;
+	}
+
+	public void setUser(User user) {
+		this.user = user;
+	}*/
 	
 }

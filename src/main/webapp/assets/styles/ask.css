@@ -95,12 +95,35 @@ input[type="text"] {
 }
 .mw400 {
 	max-width: 400px;
-	
 }
 .mh400 {
 	max-height: 400px;
-	
 }
+.mw300 {
+	max-width: 300px;
+}
+.mh300 {
+	max-height: 300px;
+}
+.mw200 {
+	max-width: 200px;
+}
+.mh200 {
+	max-height: 200px;
+}
+.mw100 {
+	max-width: 100px;
+}
+.mh100 {
+	max-height: 100px;
+}
+.mw50 {
+	max-width: 50px;
+}
+.mh50 {
+	max-height: 50px;
+}
+
 
 .chosenAnswer {
 	border-color:#ff3300;
