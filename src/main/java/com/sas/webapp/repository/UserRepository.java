@@ -1,12 +1,11 @@
 package com.sas.webapp.repository;
 
-import com.sas.webapp.domain.User;
+import java.util.List;
 
 import org.joda.time.DateTime;
 import org.springframework.data.jpa.repository.JpaRepository;
-import org.springframework.data.jpa.repository.Query;
 
-import java.util.List;
+import com.sas.webapp.domain.User;
 
 /**
  * Spring Data JPA repository for the User entity.
@@ -20,5 +19,8 @@ public interface UserRepository extends JpaRepository<User, Long> {
     User findOneByLogin(String login);
 
     User findOneByEmail(String email);
+    
+    User findOneById(Long id);
+    
 
 }

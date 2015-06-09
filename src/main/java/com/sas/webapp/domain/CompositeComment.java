@@ -3,16 +3,12 @@ package com.sas.webapp.domain;
 public class CompositeComment {
 
 	private Comment comment;
+
+	private String userName;
 	
-	private String userFirstName;
-	
-	private String userLastName;
-	
-	public CompositeComment(Comment comment, String userFirstName,
-			String userLastName) {
+	public CompositeComment(Comment comment, String userName) {
 		this.comment = comment;
-		this.userFirstName = userFirstName;
-		this.userLastName = userLastName;
+		this.setUserName(userName);
 	}
 
 	public Comment getComment() {
@@ -23,21 +19,15 @@ public class CompositeComment {
 		this.comment = comment;
 	}
 
-	public String getUserFirstName() {
-		return userFirstName;
+	public String getUserName() {
+		return userName;
 	}
 
-	public void setUserFirstName(String userFirstName) {
-		this.userFirstName = userFirstName;
+	public void setUserName(String userName) {
+		this.userName = userName;
 	}
 
-	public String getUserLastName() {
-		return userLastName;
-	}
-
-	public void setUserLastName(String userLastName) {
-		this.userLastName = userLastName;
-	}
+	
 	
 	
 }

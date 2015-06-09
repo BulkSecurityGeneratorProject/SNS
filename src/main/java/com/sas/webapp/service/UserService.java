@@ -1,13 +1,11 @@
 package com.sas.webapp.service;
 
-import com.sas.webapp.domain.Authority;
-import com.sas.webapp.domain.PersistentToken;
-import com.sas.webapp.domain.User;
-import com.sas.webapp.repository.AuthorityRepository;
-import com.sas.webapp.repository.PersistentTokenRepository;
-import com.sas.webapp.repository.UserRepository;
-import com.sas.webapp.security.SecurityUtils;
-import com.sas.webapp.service.util.RandomUtil;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
+
+import javax.inject.Inject;
+
 import org.joda.time.DateTime;
 import org.joda.time.LocalDate;
 import org.slf4j.Logger;
@@ -17,10 +15,14 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import javax.inject.Inject;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import com.sas.webapp.domain.Authority;
+import com.sas.webapp.domain.PersistentToken;
+import com.sas.webapp.domain.User;
+import com.sas.webapp.repository.AuthorityRepository;
+import com.sas.webapp.repository.PersistentTokenRepository;
+import com.sas.webapp.repository.UserRepository;
+import com.sas.webapp.security.SecurityUtils;
+import com.sas.webapp.service.util.RandomUtil;
 
 /**
  * Service class for managing users.
@@ -69,8 +71,8 @@ public class UserService {
         newUser.setLastName(lastName);
         newUser.setEmail(email);
         newUser.setLangKey(langKey);
-        // new user is not active
-        newUser.setActivated(false);
+        // new user is active
+        newUser.setActivated(true);
         // new user gets registration key
         newUser.setActivationKey(RandomUtil.generateActivationKey());
         authorities.add(authority);

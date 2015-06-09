@@ -10,6 +10,9 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.sql.rowset.serial.SerialException;
 
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.User;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -21,6 +24,7 @@ import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sas.webapp.domain.Comment;
 import com.sas.webapp.domain.CompositeComment;
+import com.sas.webapp.repository.UserRepository;
 import com.sas.webapp.repository.pages.CommentRepository;
 
 @RestController
@@ -29,20 +33,32 @@ public class CommentController {
 	@Inject
 	private CommentRepository commentRepository;
 	
+	@Inject
+	private UserRepository userRepository;
+	
 	@RequestMapping(value = "/createComment", method = RequestMethod.POST)
 	public List<CompositeComment> createComment(	@RequestParam(value = "file", required = false) MultipartFile file,
 										@RequestParam(value = "comment", required = true) String serializedComment
 			) throws JsonParseException, JsonMappingException, IOException, SerialException, SQLException{
-		// TODO : user id sessiondan alınacak
+		
 		ObjectMapper mapper = new ObjectMapper();
+		
+		/* Sessiondan username alıp user ın idsini bulma 
+		 * User bizim obje değil --> import org.springframework.security.core.userdetails.User */
+		Authentication auth = SecurityContextHolder.getContext().getAuthentication();
+		User u = (User) auth.getPrincipal();
+		Long userId = userRepository.findOneByLogin(u.getUsername()).getId();
+		/* Sessiondan username alıp user ın idsini bulma */
+		
 		Comment comment = mapper.readValue(serializedComment.getBytes(Charset.forName("UTF-8")), Comment.class);
-		comment.settUserId(4L);
+		comment.settUserId(userId);
 		comment.setCommentDate(Calendar.getInstance().getTime());
 		if(file != null){
 			comment.setCommentPic(file.getBytes());
 		}
 		Comment q = commentRepository.save(comment); 
 		System.out.println(q.getCommentColumn());
+		
 		
 		/*
 		 * 
@@ -67,11 +83,14 @@ public class CommentController {
 	private List<CompositeComment> getComments(Long questionId){
 		List<Comment> comments = commentRepository.findByTQuestionId(questionId);
 		List<CompositeComment> compositeComments = new ArrayList<CompositeComment>(comments.size());
-		// TODO : user tablosundan çekmeyi bul
+		
 		for (Comment comment : comments) {
-			compositeComments.add(new CompositeComment(comment, "Kenan Can", "Bozat"));
+			compositeComments.add(new CompositeComment(comment, userRepository.findOneById(comment.gettUserId()).getLogin()));
 		}
 		return compositeComments;
 	}
 	
+	
+	
 }
+

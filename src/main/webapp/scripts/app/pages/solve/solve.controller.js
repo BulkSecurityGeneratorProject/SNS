@@ -22,7 +22,8 @@
 			$http.get('/getQuestionsByLessonId?lessonId=' + selectedLesson.id).then(function(data){
 				$scope.questions = data.data;
 				$scope.currentQuestion = $scope.questions[0];
-				$http.get('/getCommentsByQuestionId?questionId=' + $scope.currentQuestion.id).then(function(data){
+				$http.get('/getCommentsByQuestionId?questionId=' + $scope.currentQuestion.question.id).then(function(data){
+					console.log(data.data);
 					$scope.currentQuestion.comments = data.data;
 				});
 			});
@@ -40,7 +41,7 @@
 	        $scope.currentQuestion = {};
 	        $scope.currentQuestion = $scope.questions[$scope._Index];
 	        if(!$scope.currentQuestion.comments || $scope.currentQuestion.comments.length == 0){
-	        	$http.get('/getCommentsByQuestionId?questionId=' + $scope.currentQuestion.id).then(function(data){
+	        	$http.get('/getCommentsByQuestionId?questionId=' + $scope.currentQuestion.question.id).then(function(data){
 	        		if(data.data.length > 0){
 	        			$scope.currentQuestion.comments = data.data;
 	        		}
@@ -54,7 +55,7 @@
 	        $scope.currentQuestion = {};
 	        $scope.currentQuestion = $scope.questions[$scope._Index];
 	        if(!$scope.currentQuestion.comments || $scope.currentQuestion.comments.length == 0){
-	        	$http.get('/getCommentsByQuestionId?questionId=' + $scope.currentQuestion.id).then(function(data){
+	        	$http.get('/getCommentsByQuestionId?questionId=' + $scope.currentQuestion.question.id).then(function(data){
 	        		if(data.data.length > 0){
 	        			$scope.currentQuestion.comments = data.data;
 	        		}
@@ -70,7 +71,7 @@
 	    $scope.upload = function(){
 	    	var comment = {
     			commentColumn : $scope.commentColumn,
-    			tQuestionId : $scope.currentQuestion.id
+    			tQuestionId : $scope.currentQuestion.question.id
 	    	};
 	    	var fd = new FormData();
 	    	fd.append('file', $scope.uploadme);

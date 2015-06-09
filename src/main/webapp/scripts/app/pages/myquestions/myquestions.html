@@ -15,9 +15,22 @@
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="question in questions" style="height:55px; !important">
-        <td ng-click="showQuestion(question);">{{question.questionDef}}</td>
-        <td><img class="mw50 mh50" ng-if="question.questionPic" ng-src="data:image/JPEG;base64,{{question.questionPic}}"/></td>
+      <tr ng-repeat-start="question in questions" style="height:55px; !important" class="pointer">
+        <td ng-click="showDetails(question);">{{question.questionDef}}</td>
+        <td><div class="img-hover"><img class="mw50 mh50 img-responsive img-rounded" ng-if="question.questionPic" ng-src="data:image/JPEG;base64,{{question.questionPic}}"/></div></td>
+      </tr>
+      <tr ng-show="question.showDetails" ng-repeat-end="">
+      	<td>
+      	<div class="row col-xs-12 mt10">
+			<ul ng-repeat="comment in question.comments | orderBy:'-comment.commentDate'" class="row col-xs-12 mt20">
+			<div class="img-hover"><img ng-if="comment.comment.commentPic" class="row mw50 mh50 ml10 img-responsive img-rounded" ng-src="data:image/JPEG;base64,{{comment.comment.commentPic}}"></img></div>
+			<li stlye="border-top: 1px solid black;"><input type="checkbox"	class="ib roundcbox mt20" ng-checked="comment.comment.commentValue" ng-model="comment.comment.commentValue" ng-change="updateComment(comment);"/>
+				<p class="ib">{{comment.comment.commentColumn}}</p> <br /> <i>{{comment.userName}},
+					Tarih : {{comment.comment.commentDate | date : 'dd MMMM yyyy hh:mm:ss'}}</i>
+				<hr style="background-color: #000" /></li>
+			</ul>
+			</div>
+		</td>
       </tr>
     </tbody>
   </table>
