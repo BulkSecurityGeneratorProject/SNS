@@ -1,5 +1,22 @@
- <meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
+
+<meta http-equiv="Content-Type" content="text/html;charset=UTF-8" />
 <div class="row container">
+	<div class="row col-xs-12">
+		<div class="col-xs-5">
+			<h4>DERSLERE GÖRE SORU DAĞILIMI</h4>
+		</div>
+		<div class="col-xs-7">
+			<h4>SON 12 AY İÇİNDE AYLARA GÖRE SORULAN SORU SAYISI</h4>
+		</div>
+	</div>
+	<div class="row col-xs-12">
+		<div class="col-xs-5">
+			<canvas id="donutChart" width="300" height="300"></canvas>
+		</div>
+		<div class="col-xs-7">
+			<canvas id="lineChart" width="500" height="300"></canvas>
+		</div>
+	</div>
 	<div class="row col-xs-6 mt20">
 		<p class="row col-xs-3">Bir Ders Seçin :</p>
 		<select class="col-xs-3" ng-model="selectedLesson"
@@ -7,32 +24,61 @@
 			ng-options="lesson as lesson.lessonName for lesson in lessons"
 			ng-change="changeLesson(selectedLesson);"></select>
 	</div>
-    <table ng-if="questions" class="table table-hover row row-offcanvas mt20">
-    <thead>
-      <tr>
-        <th>Soru Açıklaması</th>
-        <th>Soru Resmi</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr ng-repeat-start="question in questions" style="height:55px; !important" class="pointer">
-        <td ng-click="showDetails(question);">{{question.questionDef}}</td>
-        <td><div class="img-hover"><img class="mw50 mh50 img-responsive img-rounded" ng-if="question.questionPic" ng-src="data:image/JPEG;base64,{{question.questionPic}}"/></div></td>
-      </tr>
-      <tr ng-show="question.showDetails" ng-repeat-end="">
-      	<td>
-      	<div class="row col-xs-12 mt10">
-			<ul ng-repeat="comment in question.comments | orderBy:'-comment.commentDate'" class="row col-xs-12 mt20">
-			<div class="img-hover"><img ng-if="comment.comment.commentPic" class="row mw50 mh50 ml10 img-responsive img-rounded" ng-src="data:image/JPEG;base64,{{comment.comment.commentPic}}"></img></div>
-			<li stlye="border-top: 1px solid black;"><input type="checkbox"	class="ib roundcbox mt20" ng-checked="comment.comment.commentValue" ng-model="comment.comment.commentValue" ng-change="updateComment(comment);"/>
-				<p class="ib">{{comment.comment.commentColumn}}</p> <br /> <i>{{comment.userName}},
-					Tarih : {{comment.comment.commentDate | date : 'dd MMMM yyyy hh:mm:ss'}}</i>
-				<hr style="background-color: #000" /></li>
-			</ul>
-			</div>
-		</td>
-      </tr>
-    </tbody>
-  </table>
-		
+	<table ng-if="questions"
+		class="table table-hover row row-offcanvas mt20">
+		<thead>
+			<tr>
+				<th>Soru Açıklaması</th>
+				<th>Soru Resmi</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr ng-repeat-start="question in questions"
+				style="height: 55px; !important" class="pointer">
+				<td ng-click="showDetails(question);">{{question.questionDef}}</td>
+				<td><div class="img-hover">
+						<img class="mw50 mh50 img-responsive img-rounded"
+							ng-if="question.questionPic"
+							ng-src="data:image/JPEG;base64,{{question.questionPic}}" />
+					</div></td>
+			</tr>
+
+			<tr ng-show="question.showDetails" ng-repeat-end="">
+				<td>
+					<div id="commentDetails">
+						<div ng-show="question.comments.length">
+							<ul
+								ng-repeat="comment in question.comments | orderBy:'-comment.commentDate'">
+								<div class="img-hover">
+									<img ng-if="comment.comment.commentPic"
+										class="row mw50 mh50img-responsive img-rounded"
+										ng-src="data:image/JPEG;base64,{{comment.comment.commentPic}}"></img>
+								</div>
+								<li stlye="border-top: 1px solid black;"><input
+									type="checkbox" class="ib roundcbox"
+									ng-checked="comment.comment.commentValue"
+									ng-model="comment.comment.value"
+									ng-click="updateComment(comment);" ng-true-value="1"
+									ng-false-value="0" />
+									<p class="ib">{{comment.comment.commentColumn}}</p> <br /> <i>{{comment.userName}},
+										Tarih : {{comment.comment.commentDate | date : 'dd MMMM yyyy
+										hh:mm:ss'}}</i>
+									<hr style="background-color: #000" /></li>
+							</ul>
+						</div>
+						<div ng-show="!question.comments.length">
+							<p>
+								<i>Bu sorunuza yorum yapılmamıştır.</i>
+							</p>
+						</div>
+					</div>
+				</td>
+				<td>
+					<div id="commentDetails"></div>
+				</td>
+
+			</tr>
+		</tbody>
+	</table>
+
 </div>

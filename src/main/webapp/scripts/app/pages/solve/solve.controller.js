@@ -19,7 +19,11 @@
 			}
 			
 			$scope.questions = null;
-			$http.get('/getQuestionsByLessonId?lessonId=' + selectedLesson.id).then(function(data){
+			var url = '/getQuestionsByLessonId?lessonId=' + selectedLesson.id;
+			if($scope.unsolvedQuestions){
+				url = '/getQuestionsByLessonIdUnsolved?lessonId=' + selectedLesson.id + '&unsolvedQuestions=true';
+			}
+			$http.get(url).then(function(data){
 				$scope.questions = data.data;
 				$scope.currentQuestion = $scope.questions[0];
 				$http.get('/getCommentsByQuestionId?questionId=' + $scope.currentQuestion.question.id).then(function(data){

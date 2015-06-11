@@ -26,6 +26,7 @@ import com.sas.webapp.domain.Comment;
 import com.sas.webapp.domain.CompositeComment;
 import com.sas.webapp.repository.UserRepository;
 import com.sas.webapp.repository.pages.CommentRepository;
+import com.sas.webapp.repository.pages.QuestionRepository;
 
 @RestController
 public class CommentController {
@@ -35,6 +36,9 @@ public class CommentController {
 	
 	@Inject
 	private UserRepository userRepository;
+	
+	@Inject
+	private QuestionRepository questionRepository;
 	
 	@RequestMapping(value = "/createComment", method = RequestMethod.POST)
 	public List<CompositeComment> createComment(	@RequestParam(value = "file", required = false) MultipartFile file,
@@ -79,6 +83,15 @@ public class CommentController {
 	public List<CompositeComment> getCommentsByQuestionId(@RequestParam Long questionId){
 		return getComments(questionId);
 	}	
+	
+	@RequestMapping(value = "/updateCommentById", method = RequestMethod.GET)
+	public int updateCommentById(@RequestParam int commentValue, @RequestParam Long id, @RequestParam Long questionId){
+		int ret = commentRepository.updateCommentById(commentValue, id);
+		
+		List<Comment> checkedComments = commentRepository.findByTQuestionIdAndCommentValueEquals(questionId, 1);
+		
+		return questionRepository.updateQuestionById(checkedComments.size() > 0 ? 1 : 0, questionId);
+	}
 	
 	private List<CompositeComment> getComments(Long questionId){
 		List<Comment> comments = commentRepository.findByTQuestionId(questionId);

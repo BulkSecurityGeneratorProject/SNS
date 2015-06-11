@@ -8,6 +8,7 @@
 			ng-options="lesson as lesson.lessonName for lesson in lessons"
 			ng-change="changeLesson(selectedLesson);"></select>
 	</div>
+	<div class="row col-xs-12"><input type="checkbox" ng-model="unsolvedQuestions"> Sadece çözülmemiş soruları göster</input></div>
 	<div class="row col-xs-12 mt10" ng-if="questions">
 		<div class="text-right row col-xs-12">{{currentQuestion.userName}}, Tarih : {{currentQuestion.question.questionDate | date : 'dd MMMM yyyy hh:mm:ss'}}</div>
 		<div class="container slider">
